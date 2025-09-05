@@ -1,33 +1,33 @@
 package com.escola.senai.Service;
 
-import com.escola.senai.Interace.AlunoRepository;
-import com.escola.senai.Models.Aluno;
+import com.escola.senai.Interace.EnderecoRepository;
+import com.escola.senai.Models.Endereco;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class AlunoService {
-    private final AlunoRepository repository;
+public class EnderecoService {
+    private final EnderecoRepository repository;
 
 
-    public AlunoService(AlunoRepository repository) {
+    public EnderecoService(EnderecoRepository repository) {
         this.repository = repository;
     }
 
-    public List<Aluno> buscarTodosAlunos() {
+    public List<Endereco> buscarTodosEndereco() {
         return repository.findAll();
     }
 
-    public Aluno salvarNovoAluno(Aluno aluno) {
-      return repository.save(aluno);
+    public Endereco salvarNovoEndereco(Endereco endereco) {
+      return repository.save(endereco);
     }
 
-    public Aluno buscarAlunosId(Long id) {
+    public Endereco buscarEnderecoId(Long id) {
         return repository.findById(id).orElse((null));
     }
 
-    public void deletarAluno(long id){
+    public void deletarEndereco(long id){
         repository.deleteById(id);
     }
 

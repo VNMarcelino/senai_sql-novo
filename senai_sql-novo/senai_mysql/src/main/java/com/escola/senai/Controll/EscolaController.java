@@ -1,52 +1,57 @@
 package com.escola.senai.Controll;
 
-import com.escola.senai.Models.Aluno;
-import com.escola.senai.Models.Professor;
-import com.escola.senai.Service.AlunoService;
+import com.escola.senai.Models.Escola;
+import com.escola.senai.Service.EscolaService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("alunos")
-public class AlunoController {
-    private final AlunoService alunoService;
+@RequestMapping("escola")
+public class EscolaController {
+    private final EscolaService escolaService;
 
-    public AlunoController(AlunoService alunoService) {
-        this.alunoService = alunoService;
+    public EscolaController(EscolaService escolaService) {
+        this.escolaService = escolaService;
     }
 
     @GetMapping
-    public List<Aluno> buscarALunos(){
-        return alunoService.buscarTodosAlunos();
+    public List<Escola> buscarEscola(){
+        return escolaService.buscarTodasEscolas();
     }
 
 
     @PostMapping
-    public Aluno salvar(@RequestBody Aluno aluno){
-        return alunoService.salvarNovoAluno(aluno);
+    public Escola salvar(@RequestBody Escola escola){
+        return escolaService.salvarNovoEscola(escola);
     }
     
     @PutMapping("/{id}")
-    public Aluno atualizarAluno(@PathVariable Long id, @RequestBody Aluno novoAluno){
-        Aluno verificaAluno = alunoService.buscarAlunosId(id);
-        if (verificaAluno==null) return null;
+    public Escola atualizarEscola(@PathVariable Long id, @RequestBody Escola novoEscola){
+        Escola verificaEscola = escolaService.buscarEscolaId(id);
+        if (verificaEscola==null) return null;
 
-        verificaAluno.setNome(novoAluno.getNome());
-        verificaAluno.setEmail(novoAluno.getEmail());
-        verificaAluno.setTelefone(novoAluno.getTelefone());
-        return alunoService.salvarNovoAluno(verificaAluno);
+        verificaEscola.setNome(novoEscola.getNome());
+        verificaEscola.setEmail(novoEscola.getEmail());
+        verificaEscola.setTelefone(novoEscola.getTelefone());
+
+        verificaEscola.setCnpj(novoEscola.getCnpj());
+        verificaEscola.setDisciplinas(novoEscola.getDisciplinas());
+        verificaEscola.setTurmas(novoEscola.getTurmas());
+        verificaEscola.setStatusAluno(novoEscola.getStatusAluno());
+
+        return escolaService.salvarNovoEscola(verificaEscola);
     }
     
     @GetMapping("/{id}")
-    public Aluno buscaAlunoId(@PathVariable Long id){
-        return alunoService.buscarAlunosId(id);
+    public Escola buscaEscolaId(@PathVariable Long id){
+        return escolaService.buscarEscolaId(id);
     }
 
 
     @DeleteMapping("/{id}")
-    public void excluirAluno(@PathVariable Long id){
-        alunoService.deletarAluno(id);
+    public void excluirEscola(@PathVariable Long id){
+        escolaService.deletarEscola(id);
     }
 
 

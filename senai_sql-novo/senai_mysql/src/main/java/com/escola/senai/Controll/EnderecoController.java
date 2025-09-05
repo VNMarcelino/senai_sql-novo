@@ -1,52 +1,51 @@
 package com.escola.senai.Controll;
 
-import com.escola.senai.Models.Aluno;
-import com.escola.senai.Models.Professor;
-import com.escola.senai.Service.AlunoService;
+import com.escola.senai.Models.Endereco;
+import com.escola.senai.Service.EnderecoService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("alunos")
-public class AlunoController {
-    private final AlunoService alunoService;
+@RequestMapping("endereco")
+public class EnderecoController {
+    private final EnderecoService enderecoService;
 
-    public AlunoController(AlunoService alunoService) {
-        this.alunoService = alunoService;
+    public EnderecoController(EnderecoService enderecoService) {
+        this.enderecoService = enderecoService;
     }
 
     @GetMapping
-    public List<Aluno> buscarALunos(){
-        return alunoService.buscarTodosAlunos();
+    public List<Endereco> buscarEndereco(){
+        return enderecoService.buscarTodosEndereco();
     }
 
 
     @PostMapping
-    public Aluno salvar(@RequestBody Aluno aluno){
-        return alunoService.salvarNovoAluno(aluno);
+    public Endereco salvar(@RequestBody Endereco endereco){
+        return enderecoService.salvarNovoEndereco(endereco);
     }
     
     @PutMapping("/{id}")
-    public Aluno atualizarAluno(@PathVariable Long id, @RequestBody Aluno novoAluno){
-        Aluno verificaAluno = alunoService.buscarAlunosId(id);
-        if (verificaAluno==null) return null;
+    public Endereco atualizarendereco(@PathVariable Long id, @RequestBody Endereco novoEndereco){
+        Endereco verificaendereco = enderecoService.buscarEnderecoId(id);
+        if (verificaendereco==null) return null;
 
-        verificaAluno.setNome(novoAluno.getNome());
-        verificaAluno.setEmail(novoAluno.getEmail());
-        verificaAluno.setTelefone(novoAluno.getTelefone());
-        return alunoService.salvarNovoAluno(verificaAluno);
+        verificaendereco.setCep(novoEndereco.getNome());
+        verificaendereco.setLogradouro(novoEndereco.getEmail());
+        verificaendereco.setComplemento(novoEndereco.getTelefone());
+        return enderecoService.salvarNovoEndereco(verificaendereco);
     }
     
     @GetMapping("/{id}")
-    public Aluno buscaAlunoId(@PathVariable Long id){
-        return alunoService.buscarAlunosId(id);
+    public Endereco buscaEnderecoId(@PathVariable Long id){
+        return enderecoService.buscarEnderecoId(id);
     }
 
 
     @DeleteMapping("/{id}")
-    public void excluirAluno(@PathVariable Long id){
-        alunoService.deletarAluno(id);
+    public void excluirEndereco(@PathVariable Long id){
+        enderecoService.deletarEndereco(id);
     }
 
 
