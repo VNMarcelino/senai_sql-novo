@@ -1,36 +1,26 @@
 package com.escola.senai.Service;
 
-import com.escola.senai.Interace.AlunoRepository;
-import com.escola.senai.Models.Aluno;
+import com.escola.senai.Interace.UsarioRepository;
+import com.escola.senai.Models.Usuario;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class AlunoService {
-    private final AlunoRepository repository;
+public class UsuarioService {
+    private final UsarioRepository repository;
 
 
-    public AlunoService(AlunoRepository repository) {
+    public UsuarioService(UsarioRepository repository) {
         this.repository = repository;
     }
 
-    public List<Aluno> buscarTodosAlunos() {
-        return repository.findAll();
+    public Usuario fazerlogin(String username, String senha) {
+        return repository.findByUsernameAndSenha(username, senha).orElse(null);
     }
 
-    public Aluno salvarNovoAluno(Aluno aluno) {
-      return repository.save(aluno);
+    public Usuario salvarusuario(Usuario user) {
+        return repository.save(user);
+
     }
-
-    public Aluno buscarAlunosId(Long id) {
-        return repository.findById(id).orElse((null));
-    }
-
-    public void deletarAluno(long id){
-        repository.deleteById(id);
-    }
-
-
-
 }
